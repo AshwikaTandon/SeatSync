@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101827">
+    <title>SeatSync | Smart Library Seating</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-icon"><i class="fa-solid fa-book-open"></i></div>
+            <span>Seat<span class="brand-accent">Sync</span></span>
+        </div>
+
+        <div class="sidebar-label">MENU</div>
+
+        <nav class="navigation">
+            <button class="nav-link active" data-page="dashboard">
+                <i class="fa-solid fa-grid-2"></i> Dashboard
+            </button>
+            <button class="nav-link" data-page="booking">
+                <i class="fa-solid fa-chair"></i> Find a Seat
+            </button>
+            <button class="nav-link" data-page="bookings">
+                <i class="fa-regular fa-calendar-check"></i> My Bookings
+                <span class="nav-count" id="bookingCount">0</span>
+            </button>
+            <button class="nav-link" data-page="profile">
+                <i class="fa-regular fa-user"></i> My Profile
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="help-card">
+                <div class="help-icon"><i class="fa-regular fa-circle-question"></i></div>
+                <h4>Need help?</h4>
+                <p>Find your perfect study spot with SeatSync.</p>
+                <button id="helpButton">Explore tips <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="avatar">S</div>
+                <div>
+                    <strong>Student User</strong>
+                    <small>Student Account</small>
+                </div>
+                <i class="fa-solid fa-ellipsis"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <button class="mobile-menu" id="mobileMenu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="breadcrumb">
+                <span>Workspace</span>
+                <i class="fa-solid fa-chevron-right"></i>
+                <strong id="pageName">Dashboard</strong>
+            </div>
+
+            <div class="top-actions">
+                <div class="live-status">
+                    <span class="live-dot"></span>
+                    Library status
+                </div>
+                <button class="icon-button" id="themeButton" title="Toggle theme">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+                <button class="profile-avatar" id="profileShortcut">S</button>
+            </div>
+        </header>
+
+        <!-- DASHBOARD PAGE -->
+        <section class="page active" id="dashboard">
+
+            <div class="welcome-row">
+                <div>
+                    <div class="eyebrow">YOUR STUDY SPACE</div>
+                    <h1>Good to see you, Student <span class="wave">✦</span></h1>
+                    <p>Find your focus. Find your space. Make today count.</p>
+                </div>
+                <div class="date-display">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span id="todayDate"></span>
+                </div>
+            </div>
+
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <div class="hero-tag"><span></span> YOUR LIBRARY, REIMAGINED</div>
+                    <h2>Your next great idea<br>starts with the <span>right seat.</span></h2>
+                    <p>Skip the search. Find your perfect study spot and get straight to what matters.</p>
+                    <button class="primary-button" data-goto="booking">
+                        Find your seat <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="hero-decoration">
+                    <div class="hero-circle circle-one"></div>
+                    <div class="hero-circle circle-two"></div>
+                    <div class="hero-book"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="floating-card">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <div><strong>Study spot found!</strong><small>Your focus starts here.</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <h2>Library overview</h2>
+                    <p>Here's what's happening in your library today.</p>
+                </div>
+                <span class="updated-label"><span></span> Demo occupancy</span>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-top"><span>Total seats</span><div class="stat-icon blue"><i class="fa-solid fa-chair"></i></div></div>
+                    <h3 id="totalSeats">48</h3>
+                    <small>Across all floors</small>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top"><span>Available seats</span><div class="stat-icon green"><i class="fa-solid fa-check"></i></div></div>
+                    <h3 id="availableSeats">32</h3>
+                    <small>Ready for you</small>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top"><span>Occupied seats</span><div class="stat-icon orange"><i class="fa-solid fa-users"></i></div></div>
+                    <h3 id="occupiedSeats">16</h3>
+                    <small>Currently in use</small>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-top"><span>My bookings</span><div class="stat-icon purple"><i class="fa-regular fa-bookmark"></i></div></div>
+                    <h3 id="myBookingStat">0</h3>
+                    <small>Your reservations</small>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="panel occupancy-panel">
+                    <div class="panel-heading">
+                        <div><h3>Library occupancy</h3><p>Seat availability overview</p></div>
+                        <span class="mini-badge">Today</span>
+                    </div>
+                    <div class="occupancy-content">
+                        <div class="donut" id="occupancyDonut">
+                            <div class="donut-center">
+                                <strong id="occupancyPercent">33%</strong>
+                                <span>Occupied</span>
+                            </div>
+                        </div>
+                        <div class="occupancy-legend">
+                            <div><span class="legend-dot green-dot"></span><span>Available</span><strong id="legendAvailable">32</strong></div>
+                            <div><span class="legend-dot orange-dot"></span><span>Occupied</span><strong id="legendOccupied">16</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel quick-panel">
+                    <div class="panel-heading">
+                        <div><h3>Quick actions</h3><p>Get things done faster</p></div>
+                    </div>
+                    <button class="quick-action" data-goto="booking">
+                        <span class="quick-icon blue"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <span><strong>Find available seats</strong><small>Explore the seating map</small></span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="quick-action" data-goto="bookings">
+                        <span class="quick-icon purple"><i class="fa-regular fa-calendar"></i></span>
+                        <span><strong>My reservations</strong><small>View your bookings</small></span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel recent-panel">
+                <div class="panel-heading">
+                    <div><h3>Recent reservations</h3><p>Your latest seat bookings</p></div>
+                    <button class="text-button" data-goto="bookings">View all <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+                <div id="recentBookings" class="recent-list">
+                    <div class="empty-state">You haven't booked a seat yet. Find your perfect spot!</div>
+                </div>
+            </div>
+
+            <div class="demo-note">
+                <i class="fa-solid fa-circle-info"></i>
+                Seat availability shown here is simulated for this frontend prototype.
+            </div>
+        </section>
+
+        <!-- BOOKING PAGE -->
+        <section class="page" id="booking">
+            <div class="page-intro">
+                <div class="eyebrow">MAKE IT YOURS</div>
+                <h1>Find your perfect seat.</h1>
+                <p>Choose your floor, pick your spot and settle into your next productive session.</p>
+            </div>
+
+            <div class="booking-layout">
+                <div class="panel seating-panel">
+                    <div class="panel-heading">
+                        <div><h3>Explore seating</h3><p>Select an available seat to continue.</p></div>
+                        <span class="live-status"><span class="live-dot"></span> Demo map</span>
+                    </div>
+
+                    <div class="floor-controls">
+                        <button class="floor-button active" data-floor="1">Floor 01</button>
+                        <button class="floor-button" data-floor="2">Floor 02</button>
+                        <button class="floor-button" data-floor="3">Floor 03</button>
+                    </div>
+
+                    <div class="zone-controls">
+                        <label for="zoneFilter">Study zone</label>
+                        <select id="zoneFilter">
+                            <option value="all">All zones</option>
+                            <option value="Silent Zone">Silent Zone</option>
+                            <option value="General Zone">General Zone</option>
+                            <option value="Group Zone">Group Zone</option>
+                        </select>
+                    </div>
+
+                    <div class="seat-map-wrapper">
+                        <div class="window-label"><i class="fa-regular fa-sun"></i> WINDOW SIDE</div>
+                        <div class="seat-map" id="seatMap"></div>
+                        <div class="map-bottom-label">ENTRANCE</div>
+                    </div>
+
+                    <div class="seat-legend">
+                        <div><span class="seat-key available-key"></span> Available</div>
+                        <div><span class="seat-key occupied-key"></span> Occupied</div>
+                        <div><span class="seat-key selected-key"></span> Selected</div>
+                        <div><span class="seat-key reserved-key"></span> Your booking</div>
+                    </div>
+                </div>
+
+                <div class="panel booking-details">
+                    <h3>Booking details</h3>
+                    <p class="muted">Customize your study session.</p>
+
+                    <div class="selected-seat-box">
+                        <div class="selected-seat-icon"><i class="fa-solid fa-chair"></i></div>
+                        <div><small>SELECTED SEAT</small><strong id="selectedSeatText">No seat selected</strong></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookingDate">Choose date</label>
+                        <input type="date" id="bookingDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeSlot">Time slot</label>
+                        <select id="timeSlot">
+                            <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
+                            <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
+                            <option value="01:00 PM - 03:00 PM">01:00 PM - 03:00 PM</option>
+                            <option value="03:00 PM - 05:00 PM">03:00 PM - 05:00 PM</option>
+                            <option value="05:00 PM - 07:00 PM">05:00 PM - 07:00 PM</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zoneDisplay">Study environment</label>
+                        <input type="text" id="zoneDisplay" value="Select a seat first" readonly>
+                    </div>
+
+                    <div class="booking-summary">
+                        <div><span>Reservation fee</span><strong>FREE</strong></div>
+                        <div><span>Duration</span><strong>2 hours</strong></div>
+                    </div>
+
+                    <button class="primary-button full-button" id="confirmBooking">
+                        Confirm reservation <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <p class="secure-note"><i class="fa-solid fa-shield-halved"></i> Demo reservation · No payment required</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MY BOOKINGS PAGE -->
+        <section class="page" id="bookings">
+            <div class="page-intro">
+                <div class="eyebrow">YOUR STUDY SCHEDULE</div>
+                <h1>My reservations.</h1>
+                <p>All your study sessions, organized in one place.</p>
+            </div>
+
+            <div class="booking-summary-cards">
+                <div class="stat-card"><span>Total bookings</span><h3 id="bookingTotal">0</h3></div>
+                <div class="stat-card"><span>Upcoming</span><h3 id="upcomingTotal">0</h3></div>
+                <div class="stat-card"><span>Floors explored</span><h3 id="floorsTotal">0</h3></div>
+            </div>
+
+            <div class="panel reservations-panel">
+                <div class="panel-heading">
+                    <div><h3>Your bookings</h3><p>Manage your library reservations.</p></div>
+                    <button class="primary-button small-button" data-goto="booking"><i class="fa-solid fa-plus"></i> New booking</button>
+                </div>
+                <div id="bookingList" class="booking-list"></div>
+            </div>
+        </section>
+
+        <!-- PROFILE PAGE -->
+        <section class="page" id="profile">
+            <div class="page-intro">
+                <div class="eyebrow">YOUR ACCOUNT</div>
+                <h1>My profile.</h1>
+                <p>Manage your SeatSync student profile.</p>
+            </div>
+
+            <div class="panel profile-panel">
+                <div class="profile-cover"></div>
+                <div class="profile-main">
+                    <div class="large-avatar">S</div>
+                    <h2>Student User</h2>
+                    <p>Student Account · SeatSync Member</p>
+                    <div class="profile-details">
+                        <div><small>ACCOUNT TYPE</small><strong>Student</strong></div>
+                        <div><small>MEMBER SINCE</small><strong>November 2026</strong></div>
+                        <div><small>TOTAL BOOKINGS</small><strong id="profileBookingCount">0</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel preferences-panel">
+                <h3>Preferences</h3>
+                <p class="muted">Personalize your experience.</p>
+                <div class="preference-row">
+                    <div><strong>Preferred study environment</strong><small>Choose your default zone</small></div>
+                    <select id="preferredZone">
+                        <option>Silent Zone</option>
+                        <option>General Zone</option>
+                        <option>Group Zone</option>
+                    </select>
+                </div>
+                <div class="preference-row">
+                    <div><strong>Interface theme</strong><small>Switch between light and dark mode</small></div>
+                    <button class="secondary-button" id="profileThemeButton">Toggle theme</button>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <span>© 2026 SeatSync. Made for better study days.</span>
+            <span>Find your space. Focus on what matters.</span>
+        </footer>
+    </main>
+</div>
+
+<!-- BOOKING SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+    <div class="modal">
+        <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+        <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="eyebrow">YOU'RE ALL SET</div>
+        <h2>Seat successfully reserved!</h2>
+        <p>Your next productive session is just around the corner.</p>
+
+        <div class="ticket">
+            <div class="ticket-row"><span>Booking ID</span><strong id="ticketId">SS-0000</strong></div>
+            <div class="ticket-row"><span>Seat</span><strong id="ticketSeat">A1</strong></div>
+            <div class="ticket-row"><span>Date</span><strong id="ticketDate">Today</strong></div>
+            <div class="ticket-row"><span>Time</span><strong id="ticketTime">09 AM</strong></div>
+            <div class="ticket-row"><span>Floor</span><strong id="ticketFloor">Floor 01</strong></div>
+        </div>
+
+        <div class="qr-placeholder" id="qrCode">
+            <i class="fa-solid fa-qrcode"></i>
+            <small>DEMO BOOKING PASS</small>
+        </div>
+
+        <button class="primary-button full-button" id="doneButton">View my bookings</button>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMessage">Done!</span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
